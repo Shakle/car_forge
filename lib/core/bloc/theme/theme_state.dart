@@ -1,6 +1,7 @@
 import 'package:car_forge/core/data/repository/themes.dart';
 import 'package:flutter/material.dart';
 
+/// Provides app [ThemeData]
 class ThemeState {
   final ThemeData themeData;
 

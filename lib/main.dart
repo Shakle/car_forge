@@ -5,12 +5,14 @@ import 'package:car_forge/view/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// * [Bloc.observer] shows states change
 void main() {
   Bloc.observer = BlocStatesObserver();
 
   runApp(CarForge());
 }
 
+/// * [MultiBlocProvider] provides global states for [Theme],[Navigator], etc.
 class CarForge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class CarForge extends StatelessWidget {
     );
   }
 
-  /// * [themeState] provides currently selected theme
+  /// * [themeState] provides currently selected [ThemeData]
   Widget application({@required ThemeState themeState}) {
     return MaterialApp(
       title: 'Car Forge',

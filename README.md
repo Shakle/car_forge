@@ -1,6 +1,6 @@
 # Car Forge
 
-Forged with Flutter.
+Forged with Flutter
 
 ## About
 
