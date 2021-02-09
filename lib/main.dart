@@ -1,9 +1,12 @@
-import 'package:car_forge/core/bloc/helpers/state_obesrver.dart';
-import 'package:car_forge/core/bloc/theme/theme_bloc.dart';
-import 'package:car_forge/core/bloc/theme/theme_state.dart';
-import 'package:car_forge/view/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'core/bloc/helpers/state_obesrver.dart';
+import 'core/bloc/navigation/navigation_bloc.dart';
+import 'core/bloc/navigation/navigation_state.dart';
+import 'core/bloc/theme/theme_bloc.dart';
+import 'core/bloc/theme/theme_state.dart';
+import 'core/data/database/app_data.dart';
 
 /// * [Bloc.observer] shows states change
 void main() {
@@ -18,22 +21,39 @@ class CarForge extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider<ThemeBloc>(create: (BuildContext context) => ThemeBloc()),
+          BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
+          BlocProvider<NavigationBloc>(create: (context) => NavigationBloc()),
         ],
         child: BlocBuilder<ThemeBloc, ThemeState>(
-          builder: (BuildContext context, ThemeState themeState) {
-            return application(themeState: themeState);
+          builder: (context, themeState) {
+            return BlocBuilder<NavigationBloc, NavigationStackState>(
+              builder: (context, navigationState) {
+                return application(themeState: themeState, navigationState: navigationState);
+              }
+            );
           }
         )
     );
   }
 
   /// * [themeState] provides currently selected [ThemeData]
-  Widget application({@required ThemeState themeState}) {
+  /// * [navigationState] provides current [NavigationStackState]
+  Widget application({
+    @required ThemeState themeState,
+    @required NavigationStackState navigationState
+  }) {
     return MaterialApp(
-      title: 'Car Forge',
+      title: AppData().appName,
       theme: themeState.themeData,
-      home: HomeScreen(),
+      home: Navigator(
+        pages: [
+           MaterialPage(
+            key: ValueKey('BooksListPage'),
+            child: Scaffold(),
+          )
+        ],
+        onPopPage: (route, result) => route.didPop(result),
+      ),
     );
   }
 }

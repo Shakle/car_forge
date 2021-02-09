@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-class ThemeEvent {}
+abstract class ThemeEvent {
+  final ThemeData themeData;
+
+  ThemeEvent({
+    @required this.themeData
+  }) : assert(themeData != null, 'ThemeData must not be null');
+}
 
 /// Provides theme set [ThemeEvent]
 class ThemeSet extends ThemeEvent {
-  final ThemeData themeData;
-
-  ThemeSet({
-    @required this.themeData
-  }) : assert(themeData != null);
+  ThemeSet({@required ThemeData themeData}) : super(themeData: themeData);
 }
