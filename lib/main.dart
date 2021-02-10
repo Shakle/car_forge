@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/bloc/helpers/state_obesrver.dart';
 import 'core/bloc/navigation/navigation_bloc.dart';
-import 'core/bloc/navigation/navigation_state.dart';
 import 'core/bloc/theme/theme_bloc.dart';
 import 'core/bloc/theme/theme_state.dart';
+import 'core/data/config/routes.dart';
 import 'core/data/database/app_data.dart';
+import 'view/components/app_general/app_general_components.dart';
 
 /// * [Bloc.observer] shows states change
 void main() {
@@ -24,36 +25,19 @@ class CarForge extends StatelessWidget {
           BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
           BlocProvider<NavigationBloc>(create: (context) => NavigationBloc()),
         ],
-        child: BlocBuilder<ThemeBloc, ThemeState>(
-          builder: (context, themeState) {
-            return BlocBuilder<NavigationBloc, NavigationStackState>(
-              builder: (context, navigationState) {
-                return application(themeState: themeState, navigationState: navigationState);
-              }
-            );
-          }
-        )
+        child: application(),
     );
   }
 
-  /// * [themeState] provides currently selected [ThemeData]
-  /// * [navigationState] provides current [NavigationStackState]
-  Widget application({
-    @required ThemeState themeState,
-    @required NavigationStackState navigationState
-  }) {
-    return MaterialApp(
-      title: AppData().appName,
-      theme: themeState.themeData,
-      home: Navigator(
-        pages: [
-           MaterialPage(
-            key: ValueKey('BooksListPage'),
-            child: Scaffold(),
-          )
-        ],
-        onPopPage: (route, result) => route.didPop(result),
-      ),
-    );
+  Widget application() {
+    return BlocBuilder<ThemeBloc, ThemeState>(
+    builder: (context, themeState) {
+      return MaterialApp(
+        title: AppData().appName,
+        theme: themeState.themeData,
+        navigatorKey: Routes.navigatorKey,
+        home: navigator(),
+      );
+    });
   }
 }

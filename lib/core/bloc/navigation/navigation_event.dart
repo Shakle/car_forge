@@ -8,4 +8,8 @@ class NavigationPushed extends NavigationEvent {
   NavigationPushed({this.screen});
 }
 
-class NavigationPopped extends NavigationEvent {}
+class NavigationPopped extends NavigationEvent {
+  final String screenName;
+
+  NavigationPopped({@required this.screenName});
+}

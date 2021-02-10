@@ -8,11 +8,16 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationStackState> {
   NavigationBloc() : super(NavigationStackInitial());
 
   @override
-  Stream<NavigationStackState> mapEventToState(NavigationEvent event) async*{
-    if (event is NavigationPushed) {
-      final List<MaterialPage> newScreensStack = List.from(state.screenStack)
-        ..add(event.screen);
+  Stream<NavigationStackState> mapEventToState(NavigationEvent event) async* {
+    final List<MaterialPage> newScreensStack = List.from(state.screenStack);
 
+    if (event is NavigationPushed) {
+      newScreensStack.add(event.screen);
+      yield NavigationStackCurrent(screenStack: newScreensStack);
+
+    } else if (event is NavigationPopped) {
+      final MaterialPage screen = newScreensStack.lastWhere((s) => s.name == event.screenName);
+      newScreensStack.remove(screen);
       yield NavigationStackCurrent(screenStack: newScreensStack);
     }
   }

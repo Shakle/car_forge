@@ -11,7 +11,7 @@ abstract class NavigationStackState {
 }
 
 class NavigationStackInitial extends NavigationStackState {
-  NavigationStackInitial() : super(screenStack: [Routes().getMaterialPage(name: Routes.homeScreen)]);
+  NavigationStackInitial() : super(screenStack: [Routes().materialPage(name: Routes.homeScreen)]);
 }
 
 class NavigationStackCurrent extends NavigationStackState {
