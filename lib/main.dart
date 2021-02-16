@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'core/bloc/helpers/state_obesrver.dart';
 import 'core/bloc/navigation/navigation_bloc.dart';
 import 'core/bloc/theme/theme_bloc.dart';
 import 'core/bloc/theme/theme_state.dart';
+import 'core/data/config/app_config.dart';
 import 'core/data/config/routes.dart';
 import 'core/data/database/app_data.dart';
 import 'view/components/app_general/app_general_components.dart';
 
 /// * [Bloc.observer] shows states change
 void main() {
-  Bloc.observer = BlocStatesObserver();
+  AppConfig().setAppConfiguration();
 
   runApp(CarForge());
 }
@@ -37,6 +37,7 @@ class CarForge extends StatelessWidget {
         theme: themeState.themeData,
         navigatorKey: Routes.navigatorKey,
         home: navigator(),
+        debugShowCheckedModeBanner: false,
       );
     });
   }

@@ -18,9 +18,6 @@ analyzer:
     # Mocks for test
     - 'test/data/**'
 
-  strong-mode:
-    implicit-casts: false
-
   errors:
     # Info
     todo: info
@@ -45,7 +42,8 @@ analyzer:
 linter:
   rules:
     # Disabled
-    avoid_as: false
+    avoid_as: true
+    argument_type_not_assignable: false
     omit_local_variable_types: false
     always_specify_types: false
     avoid_redundant_argument_values: false

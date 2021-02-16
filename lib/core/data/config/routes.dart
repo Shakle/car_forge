@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../view/screens/arguments/screens_arguments.dart';
-import '../../../view/screens/home_screen.dart';
-import '../../../view/screens/screen_two.dart';
+import '../../../view/screens/home.dart';
 
 class ScreenData {
   final Widget screen;
@@ -16,14 +14,9 @@ class Routes {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   static const String homeScreen = 'home';
-  static const String secondScreen = 'second';
 
   final Map<String, ScreenData> _screens = {
     homeScreen: ScreenData(screen: HomeScreen()),
-    secondScreen: ScreenData(
-        screen: ScreenTwo(),
-        screenArguments: ScreenTwoArguments(),
-    ),
   };
 
   MaterialPage materialPage({@required String name, dynamic screenArguments}) {
