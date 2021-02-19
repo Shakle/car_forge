@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
 
+import '../components/stats/stat_card/stat_card.dart';
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return layout();
+    return layout(context);
   }
   
-  Widget layout() {
+  Widget layout(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: body(),
     );
   }
 
   Widget body() {
-    return Column(
-      children: [
-        Expanded(flex: 1, child: carImage()),
-        Expanded(flex: 2, child: Container()),
-      ],
-    );
-  }
-
-  Widget carImage() {
     return Container(
-      color: Colors.brown,
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: Center(
-        child: Icon(Icons.car_repair)
+        child: StatCard(statCardType: StatCardType.oilService),
       ),
     );
   }

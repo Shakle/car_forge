@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,7 +11,11 @@ class AppConfig {
   ];
 
   void setAppConfiguration() {
+    WidgetsFlutterBinding.ensureInitialized();
     Bloc.observer = BlocStatesObserver();
     SystemChrome.setPreferredOrientations(_screenOrientations);
   }
+
+  static double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
+  static double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 }
