@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/repository/car/car_repository.dart';
+
 enum CarFilter {oil, fuel, air, cabin}
 
 class FilterCheckbox extends StatefulWidget {
@@ -13,7 +15,6 @@ class FilterCheckbox extends StatefulWidget {
 }
 
 class _FilterCheckboxState extends State<FilterCheckbox> {
-  bool enabled = false;
 
   final Map<CarFilter, String> filterNames = {
     CarFilter.oil: 'Маслянный фильтр',
@@ -33,10 +34,12 @@ class _FilterCheckboxState extends State<FilterCheckbox> {
 
   Widget checkbox() {
     return Checkbox(
-        value: enabled,
-        onChanged: (value) {
+        value: CarRepository.carOilMaintenanceCreationData.filtersList.contains(widget.carFilter),
+        onChanged: (enabled) {
           setState(() {
-            enabled = value;
+            enabled
+                ? CarRepository.carOilMaintenanceCreationData.filtersList.add(widget.carFilter)
+                : CarRepository.carOilMaintenanceCreationData.filtersList.remove(widget.carFilter);
           });
         }
     );

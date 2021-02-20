@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
+
 import '../../data/models/car.dart';
+import '../../data/models/car_filters.dart';
 
 abstract class CarEvent {
   final Car car;
@@ -9,4 +12,10 @@ abstract class CarEvent {
 class CarChanged extends CarEvent {
 
   CarChanged(Car car) : super(car: car);
+}
+
+class CarRegularMaintenanceChanged extends CarEvent {
+  final RegularMaintenanceInfo regularMaintenanceInfo;
+
+  CarRegularMaintenanceChanged({@required this.regularMaintenanceInfo});
 }

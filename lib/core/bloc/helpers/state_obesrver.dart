@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// [BlocObserver] for the counter application which
@@ -5,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class BlocStatesObserver extends BlocObserver {
   @override
   void onChange(Cubit cubit, Change change) {
-    print('${cubit.runtimeType} $change');
+    debugPrint('${cubit.runtimeType} $change');
     super.onChange(cubit, change);
   }
 }

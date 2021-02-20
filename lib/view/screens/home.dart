@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../components/stats/stat_card/stat_card.dart';
 
 class HomeScreen extends StatelessWidget {

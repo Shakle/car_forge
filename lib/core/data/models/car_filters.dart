@@ -12,12 +12,10 @@ class RegularMaintenanceInfo {
     @required this.filtersList
   }) : assert(mileage != null && filtersList != null, 'Maintenance info must have mileage and filters changed');
 
-  RegularMaintenanceInfo fromJson(Map<String, dynamic> json) {
-    return RegularMaintenanceInfo(
-        mileage: json['mileage'],
-        filtersList: json['filters_list']
-    );
-  }
+  RegularMaintenanceInfo.fromJson(Map<String, dynamic> json)
+      : mileage = json['mileage'] ?? 0,
+        filtersList = json['filters_list'] ?? []
+  ;
 
   Map<String, dynamic> toJson() => {
     'mileage': mileage,
