@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/repository/car/car_repository.dart';
+import '../../../../../core/bloc/car/regular_maintenance/car_rm_bloc.dart';
+import '../../../../../core/bloc/car/regular_maintenance/car_rm_event.dart';
+import '../../../../../core/bloc/car/regular_maintenance/car_rm_state.dart';
 
 enum CarFilter {oil, fuel, air, cabin}
 
@@ -25,32 +28,33 @@ class _FilterCheckboxState extends State<FilterCheckbox> {
 
   @override
   Widget build(BuildContext context) {
-    return filterCheckbox();
+    return BlocBuilder<CarRegularMaintenanceBloc, CarRegularMaintenanceState>(
+        builder: (context, state) {
+          return filterCheckbox(state);
+        }
+    );
   }
 
   Widget title() {
     return Text(filterNames[widget.carFilter]);
   }
 
-  Widget checkbox() {
+  Widget checkbox(CarRegularMaintenanceState state) {
     return Checkbox(
-        value: CarRepository.carOilMaintenanceCreationData.filtersList.contains(widget.carFilter),
+        value: state.regularMaintenanceInfo.filtersList.contains(widget.carFilter),
         onChanged: (enabled) {
-          setState(() {
-            enabled
-                ? CarRepository.carOilMaintenanceCreationData.filtersList.add(widget.carFilter)
-                : CarRepository.carOilMaintenanceCreationData.filtersList.remove(widget.carFilter);
-          });
+          final FilterChanged filterChanged = FilterChanged(carFilter: widget.carFilter);
+          BlocProvider.of<CarRegularMaintenanceBloc>(context).add(filterChanged);
         }
     );
   }
 
-  Widget filterCheckbox() {
+  Widget filterCheckbox(CarRegularMaintenanceState state) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         title(),
-        checkbox(),
+        checkbox(state),
       ],
     );
   }

@@ -4,8 +4,8 @@ import '../../../view/components/stats/stat_card/oil_filters/filter_check.dart';
 import '../database/extensions.dart';
 
 class RegularMaintenanceInfo {
-  final int mileage;
-  final List<CarFilter> filtersList;
+  int mileage;
+  List<CarFilter> filtersList;
 
   RegularMaintenanceInfo({
     @required this.mileage,

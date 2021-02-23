@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/models/car.dart';
-import '../../data/models/car_filters.dart';
+import '../../data/models/car_regular_maintenance.dart';
 
 abstract class CarEvent {
   final Car car;

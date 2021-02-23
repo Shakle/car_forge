@@ -1,5 +1,5 @@
 import '../database/extensions.dart';
-import 'car_filters.dart';
+import 'car_regular_maintenance.dart';
 
 class Car {
   final String make;

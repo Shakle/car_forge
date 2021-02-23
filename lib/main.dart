@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/bloc/car/car_bloc.dart';
+import 'core/bloc/car/regular_maintenance/car_rm_bloc.dart';
 import 'core/bloc/navigation/navigation_bloc.dart';
 import 'core/bloc/theme/theme_bloc.dart';
 import 'core/bloc/theme/theme_state.dart';
@@ -26,6 +27,7 @@ class CarForge extends StatelessWidget {
           BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
           BlocProvider<NavigationBloc>(create: (context) => NavigationBloc()),
           BlocProvider<CarBloc>(create: (context) => CarBloc()),
+          BlocProvider<CarRegularMaintenanceBloc>(create: (context) => CarRegularMaintenanceBloc()),
         ],
         child: application(),
     );

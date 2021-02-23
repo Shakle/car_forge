@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/data/models/car_filters.dart';
-import '../../../../../core/repository/car/car_repository.dart';
+import '../../../../../core/bloc/car/regular_maintenance/car_rm_bloc.dart';
+import '../../../../../core/bloc/car/regular_maintenance/car_rm_event.dart';
+import '../../../../../core/bloc/car/regular_maintenance/car_rm_state.dart';
 
 class MileageEditor extends StatefulWidget {
   @override
@@ -15,10 +17,14 @@ class _MileageEditorState extends State<MileageEditor> {
 
   @override
   Widget build(BuildContext context) {
-    return mileageInput();
+    return BlocBuilder<CarRegularMaintenanceBloc, CarRegularMaintenanceState>(
+        builder: (context, state) {
+          return mileageInput(state);
+        }
+    );
   }
 
-  Widget mileageInput() {
+  Widget mileageInput(CarRegularMaintenanceState state) {
     return TextField(
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
@@ -48,12 +54,8 @@ class _MileageEditorState extends State<MileageEditor> {
   void parseMileageAndPrepareForSaving(String text) {
     if (text != null && text.isNotEmpty) {
       try {
-        final int mileage = int.tryParse(text);
-
-        CarRepository.carOilMaintenanceCreationData = RegularMaintenanceInfo(
-          mileage: mileage,
-          filtersList: CarRepository.carOilMaintenanceCreationData.filtersList,
-        );
+        final int mileage = int.parse(text);
+        BlocProvider.of<CarRegularMaintenanceBloc>(context).add(MileageChanged(mileage: mileage));
       } on Exception catch (e) {
         mileageController.text = 0.toString();
         debugPrint(e.toString());
